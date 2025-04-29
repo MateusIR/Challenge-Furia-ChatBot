@@ -6,9 +6,15 @@
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
+    <header>
+        <img class="logo" src="{{ url_for('static', filename='img/furia_logo.png') }}" alt="Logo da FURIA" />
+    </header>
+    <section class="organizacao">
+        <div class="txt_apresentacao">
+            
+        </div>
   <div class="chat-container">
     <header class="chat-header">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Furia_Esports_logo.png" class="logo" />
       <h1>FURIA Chat</h1>
     </header>
     <div id="chat-box" class="chat-box"></div>
@@ -17,6 +23,8 @@
       <button type="submit">Enviar</button>
     </form>
   </div>
+    </section>
+    
   <script src="/static/script.js"></script>
 </body>
 </html>

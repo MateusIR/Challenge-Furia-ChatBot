@@ -43,3 +43,4 @@ function removeLoading() {
   const loadingDiv = document.querySelector('.loading');
   if (loadingDiv) loadingDiv.remove();
 }
+
