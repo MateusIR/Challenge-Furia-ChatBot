@@ -136,4 +136,5 @@ dist
 .pnp.*
 
 #outros
-.venv
+/venv
+/__pycache__

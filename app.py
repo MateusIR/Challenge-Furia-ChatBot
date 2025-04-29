@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 import pytz
+import random
 
 load_dotenv()
 
@@ -26,9 +27,11 @@ def chat():
         reply = get_next_furia_match()
     elif '4' in user_message or 'ultimos jogos' in user_message:
         reply = get_last_furia_matches()
-    elif '5' in user_message or 'redes sociais' in user_message:
+    elif '5' in user_message or 'ultimos jogos' in user_message:
+        reply = get_last_furia_wins()
+    elif '6' in user_message or 'redes sociais' in user_message:
         reply = furia_social()
-    elif '6' in user_message or 'roupa' in user_message:
+    elif '7' in user_message or 'roupa' in user_message:
         reply = furia_roupas()
     else:
         reply = 'Fala FURIOSO(A)!\n O que quer saber hoje?\n\n' \
@@ -36,8 +39,9 @@ def chat():
         '2 - jogadores\n' \
         '3 - proximo jogo\n' \
         '4 - ultimos jogos\n' \
-        '5 - nossas redes sociais\n' \
-        '6 - nossas roupas\n' \
+        '5 - ultimas vitórias\n' \
+        '6 - nossas redes sociais\n' \
+        '7 - nossas roupas\n' \
 
         
         
@@ -99,9 +103,8 @@ def get_last_furia_matches():
     try:
         url = 'https://api.pandascore.co/csgo/matches/past'
         params = {
-            'filter[team_id]': 2227,  # ID da FURIA no CSGO
-            'sort': '-begin_at',      # Ordena do mais recente para o mais antigo
-            'page[size]': 5           # Limita a 5 partidas
+            'filter[opponent_id]': 124530,  # ID da FURIA no CSGO
+            'per_page': 5
         }
         headers = {
             "Authorization": f"Bearer {PANDASCORE_TOKEN}"
@@ -118,15 +121,27 @@ def get_last_furia_matches():
             opponents = [o['opponent']['name'] for o in match.get('opponents', [])]
             placar = match.get('results', [])
             score_str = f"{placar[0]['score']} x {placar[1]['score']}" if len(placar) == 2 else "Placar indisponível"
-
             data_brasilia = converter_utc_para_brasilia(match.get('begin_at', ''))
 
+            status = match.get('status', 'desconhecido')
+            league = match.get('league', {}).get('name', 'desconhecida')
+            serie = match.get('serie', {}).get('full_name', '')
+
+            if (placar[0]['score'] > placar[1]['score']):
+                vitoria = "✅ VITÓRIA DA FURIA!"
+            else:
+              vitoria = "❌ Derrota. NT"  
+                
+
+
             resposta += (
-                f"\n🏆 Torneio: {match['tournament']['name']}\n"
+                f"\n🏆 Torneio: {match['tournament']['name']} ({league} - {serie})\n"
                 f"🗓️ Data: {data_brasilia}\n"
                 f"⚔️ {' vs '.join(opponents)}\n"
                 f"🔢 Placar: {score_str}\n"
-                f"{'-'*30}"
+                f"📌 Status: {status.capitalize()}\n"
+                f"{vitoria}\n"
+                f"{'-'*40}"
             )
 
         return resposta
@@ -135,18 +150,81 @@ def get_last_furia_matches():
         return "Erro ao buscar últimas partidas!"
 
 
-def furia_historia():
-    return """ 
-historiaaaa
-        """
+
+def get_last_furia_wins():
+    try:
+        url = 'https://api.pandascore.co/csgo/matches/past'
+        params = {
+            'filter[opponent_id]': 124530,
+            'per_page': 20  
+        }
+        headers = {
+            "Authorization": f"Bearer {PANDASCORE_TOKEN}"
+        }
+
+        res = requests.get(url, headers=headers, params=params)
+        matches = res.json()
+
+        if not matches:
+            return "Nenhuma partida encontrada."
+
+        vitorias = []
+        for match in matches:
+            placar = match.get('results', [])
+            if len(placar) == 2:
+                team1 = placar[0]
+                team2 = placar[1]
+                if team1['team_id'] == 124530 and team1['score'] > team2['score']:
+                    vitorias.append(match)
+                elif team2['team_id'] == 124530 and team2['score'] > team1['score']:
+                    vitorias.append(match)
+
+            if len(vitorias) >= 3:
+                break
+
+        if not vitorias:
+            return "A FURIA não venceu recentemente."
+
+        resposta = "✅ Últimas 3 vitórias da FURIA (CSGO):\n"
+        for match in vitorias:
+            opponents = [o['opponent']['name'] for o in match.get('opponents', [])]
+            placar = match.get('results', [])
+            score_str = f"{placar[0]['score']} x {placar[1]['score']}" if len(placar) == 2 else "Placar indisponível"
+            data_brasilia = converter_utc_para_brasilia(match.get('begin_at', ''))
+
+            status = match.get('status', 'desconhecido')
+            league = match.get('league', {}).get('name', 'desconhecida')
+            serie = match.get('serie', {}).get('full_name', '')
+
+            resposta += (
+                f"\n🏆 Torneio: {match['tournament']['name']} ({league} - {serie})\n"
+                f"🗓️ Data: {data_brasilia}\n"
+                f"⚔️ {' vs '.join(opponents)}\n"
+                f"🔢 Placar: {score_str}\n"
+                f"📌 Status: {status.capitalize()}\n"
+                f"{'-'*40}"
+            )
+
+        return resposta
+    except Exception as e:
+        print(f"Erro ao buscar vitórias: {e}")
+        return "Erro ao buscar últimas vitórias!"
+
+
+
+
 def furia_social():
-    return """ 
-olha as redeees
+    
+    return """ Nossas Redes Sociais:\n
+    Instagram: https://www.instagram.com/furiagg/\n
+    YouTube: https://www.youtube.com/@FURIAggCS\n
+    X: https://x.com/FURIA
         """
 
 def furia_roupas():
-     return """
-olha a roupaaaa
+     return """ Vista o estilo FURIA:\n
+     https://www.furia.gg/collections
+
             """
 
 
@@ -154,7 +232,32 @@ olha a roupaaaa
 
 
 
+def furia_historia():
+    historia = """
+    FURIA CS: A GARRA QUE CONQUISTOU O MUNDO! 🖤🔥\n
+Pra você que tá chegando agora, a Furia nasceu em 2017 NO CS:GO, com a meta de botar o Brasil no topo! E não demorou pra gente mostrar nossa garra e estratégia nos servidores, conquistando vitórias e uma torcida INCRÍVEL!\n
 
+O CS é nossa raiz, onde a pantera mostrou seus primeiros rugidos. A gente joga com união e raça, valores que nos trouxeram até aqui e nos motivam a buscar sempre mais!\n
+
+E o futuro no CS? A Furia segue com sangue nos olhos, focada em disputar os maiores campeonatos e trazer mais orgulho pra nossa torcida! A pantera nunca se aquieta!\n
+
+Se você ama CS, se prepare pra vibrar! O rugido da Furia continua ecoando! 🐾🔫🔥
+    """
+    extra = """ 
+CHEGOU AGORA? VEM COM A FURIA! 🖤🔥\n
+Nascemos em 2017 no CS, viramos potência rapidinho e ganhamos vocês, a melhor torcida! De Minas pro mundo, expandimos pro LoL, Valorant, R6... mostrando nossa garra em tudo!\n
+
+Pra gente, união, estratégia e raça são TUDO! A pantera no peito é nossa força pra inovar e impactar.\n
+
+E o futuro? PRETO E AMARELO! Em 2025, futebol 7 com Neymar e Porsche Cup! No LoL, rumo à LTA Sul! A Furia não para!\n
+
+É isso, Furioso(a)! Segura na garra e vambora! 🐾🚀
+        """
+    numero_sorteado = random.randint(1, 10)
+    if numero_sorteado == 4 or numero_sorteado == 8:
+        return extra
+    else:
+       return historia
 
 
 def converter_utc_para_brasilia(data_utc):
