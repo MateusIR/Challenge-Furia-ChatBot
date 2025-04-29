@@ -1,30 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Chat-Bot FURIA CS2</title>
   <link rel="stylesheet" href="/static/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{{ url_for('static', filename='img/furia_logo.png') }}" type="image/x-icon">
 </head>
 <body>
-    <header>
-        <img class="logo" src="{{ url_for('static', filename='img/furia_logo.png') }}" alt="Logo da FURIA" />
-    </header>
-    <section class="organizacao">
-        <div class="txt_apresentacao">
-            
-        </div>
-  <div class="chat-container">
-    <header class="chat-header">
-      <h1>FURIA Chat</h1>
-    </header>
-    <div id="chat-box" class="chat-box"></div>
-    <form id="chat-form" class="chat-form">
-      <input type="text" id="chat-input" placeholder="Digite sua mensagem..." required />
-      <button type="submit">Enviar</button>
-    </form>
-  </div>
+  <header class="landing-header">
+    <div class="header-left">
+      <img class="logo" src="{{ url_for('static', filename='img/furia_logo.png') }}" alt="Logo da FURIA" />
+      <img class="logo-txt" src="{{ url_for('static', filename='img/furia_logo_text.svg') }}" alt="Logo da FURIA" />
+    </div>
+    <div>
+        <img class="logo-cs" src="{{ url_for('static', filename='img/cs_logo1.png') }}" alt="Logo cs2" />
+    </div>
+  </header>
+
+  <main class="landing-main">
+    <section class="left-content">
+        <h1 class="titulo">VOCÊ NA ROTA DA  <strong>FURIA </strong></h1>
+      <p class="sub-titulo">
+        Quer saber tudo da <strong>FURIA CS2</strong>?<br> 
+        Quer ver quem tá <strong> no lobby </strong>, quando é o <strong> próximo clutch </strong>?<br>
+        Reviva os embates e <strong>prepare-se</strong> para os próximos! Tudo com  <strong> </strong>um clique.<br>
+        <strong>O RUGIDO COMEÇA AQUI</strong>!
+      </p>
     </section>
-    
+
+    <section class="right-content">
+      <div class="chat-container">
+        <header class="chat-header">
+          <h1 class="sub-titulo">FURIA Chat</h1>
+        </header>
+        <div id="chat-box" class="chat-box"></div>
+        <form id="chat-form" class="chat-form">
+          <input type="text" id="chat-input" placeholder="Digite sua mensagem..." required />
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="landing-footer">
+    <img class="logo" src="{{ url_for('static', filename='img/furia_logo.png') }}" alt="Logo da FURIA" />
+  </footer>
+
   <script src="/static/script.js"></script>
 </body>
 </html>

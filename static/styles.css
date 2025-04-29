@@ -1,20 +1,94 @@
+
+
+.cal-sans-regular {
+    font-family: "Cal Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
+
 body {
     margin: 0;
-    background: #0b0b0b;
     font-family: 'Segoe UI', sans-serif;
+    background: #0b0b0b;
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+strong{
+    color: #e9a434;
+}
+.titulo{
+    font-family: "Cal Sans", sans-serif;
+    font-size: 4.5rem;
+}
+
+.sub-titulo{
+    font-family: "Cal Sans", sans-serif;
+    font-size: 2.5rem;
+}
+
+
+  .landing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background: rgb(248, 248, 248);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    padding: 0 30px;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .furia-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .landing-main {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    gap: 30px;
+  }
+  
+  .left-content {
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.6;
+    padding: 10px;
+  }
+  
+  .right-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .landing-footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    color: white;
+    background-color: #1e1e1e;
+    padding: 20px;
   }
-  
+
+
   .chat-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 400px;
-    height: 90vh;
+    max-width: 450px;
+    height: 85vh;
     background: #121212;
     border-radius: 20px;
     overflow: hidden;
@@ -32,6 +106,12 @@ body {
   .logo {
     width: 40px;
     height: 40px;
+  }
+  .logo-cs {
+    width: 60px;
+  }
+  .logo-txt {
+    height: 35px;
   }
   
   .chat-box {
@@ -63,7 +143,7 @@ body {
   }
   
   button {
-    background: #5c2d91;
+    background: #D0922E;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -81,7 +161,7 @@ body {
   }
   
   .message.user {
-    background: #5c2d91;
+    background: #D0922E;
     align-self: flex-end;
   }
   
@@ -99,4 +179,28 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  
+  @media screen and (max-width: 768px) {
+    .left-content {
+      display: none;
+    }
+  
+    .landing-header {
+      justify-content: center;
+      text-align: center;
+    }
+  
+    .landing-main {
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+  
+    .right-content {
+      width: 100%;
+    }
+  }
+  
+ 
   
