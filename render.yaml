@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: furia-flask-app
-    env: python
-    buildCommand: ""
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
-    envVars:
-      - key: PANDASCORE_TOKEN
-        value: ${PANDASCORE_TOKEN}  
