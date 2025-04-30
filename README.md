@@ -24,7 +24,6 @@ Um chatbot interativo e responsivo para fãs da FURIA, integrado à [PandaScore 
 - HTML/CSS customizado
 - API PandaScore (requer token)
 - JavaScript (para comunicação assíncrona com a API)
-- Docker (opcional)
 
 ---
 
@@ -67,16 +66,6 @@ Acesse em [http://localhost:5000](http://localhost:5000)
 
 ---
 
-## 🐳 Executando com Docker
-
-1. Crie o arquivo `.env` com o token da PandaScore.
-
-2. Execute o build e o container:
-
-```bash
-docker build -t furia-chatbot .
-docker run --env-file .env -p 5000:5000 furia-chatbot
-```
 
 3. Acesse via navegador: [http://localhost:5000](http://localhost:5000)
 
