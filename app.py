@@ -97,72 +97,68 @@ def get_next_furia_match():
 
 
 
+def get_furia_matches_from_api(per_page=5):
+    """Shared function to get FURIA matches from PandaScore API"""
+    url = 'https://api.pandascore.co/csgo/matches/past'
+    params = {
+        'filter[opponent_id]': 124530,  # ID da FURIA no CSGO
+        'per_page': per_page
+    }
+    headers = {
+        "Authorization": f"Bearer {PANDASCORE_TOKEN}"
+    }
+    res = requests.get(url, headers=headers, params=params)
+    return res.json()
+
+def format_match_response(match, include_victory_status=False):
+    """Format a single match into a string response"""
+    opponents = [o['opponent']['name'] for o in match.get('opponents', [])]
+    placar = match.get('results', [])
+    score_str = f"{placar[0]['score']} x {placar[1]['score']}" if len(placar) == 2 else "Placar indisponível"
+    data_brasilia = converter_utc_para_brasilia(match.get('begin_at', ''))
+    
+    status = match.get('status', 'desconhecido')
+    league = match.get('league', {}).get('name', 'desconhecida')
+    serie = match.get('serie', {}).get('full_name', '')
+    
+    response = (
+        f"\n🏆 Torneio: {match['tournament']['name']} ({league} - {serie})\n"
+        f"🗓️ Data: {data_brasilia}\n"
+        f"⚔️ {' vs '.join(opponents)}\n"
+        f"🔢 Placar: {score_str}\n"
+        f"📌 Status: {status.capitalize()}\n"
+    )
+    
+    if include_victory_status and len(placar) == 2:
+        if (placar[0]['team_id'] == 124530 and placar[0]['score'] > placar[1]['score']) or \
+           (placar[1]['team_id'] == 124530 and placar[1]['score'] > placar[0]['score']):
+            response += "✅ VITÓRIA DA FURIA!\n"
+        else:
+            response += "❌ Derrota. NT\n"
+    
+    response += f"{'-'*40}"
+    return response
+
 def get_last_furia_matches():
     try:
-        url = 'https://api.pandascore.co/csgo/matches/past'
-        params = {
-            'filter[opponent_id]': 124530,  # ID da FURIA no CSGO
-            'per_page': 5
-        }
-        headers = {
-            "Authorization": f"Bearer {PANDASCORE_TOKEN}"
-        }
-
-        res = requests.get(url, headers=headers, params=params)
-        matches = res.json()
-
+        matches = get_furia_matches_from_api(per_page=5)
+        
         if not matches:
             return "Nenhuma partida recente encontrada."
 
         resposta = "🕹️ Últimos 5 jogos da FURIA (CSGO):\n"
         for match in matches:
-            opponents = [o['opponent']['name'] for o in match.get('opponents', [])]
-            placar = match.get('results', [])
-            score_str = f"{placar[0]['score']} x {placar[1]['score']}" if len(placar) == 2 else "Placar indisponível"
-            data_brasilia = converter_utc_para_brasilia(match.get('begin_at', ''))
-
-            status = match.get('status', 'desconhecido')
-            league = match.get('league', {}).get('name', 'desconhecida')
-            serie = match.get('serie', {}).get('full_name', '')
-
-            if (placar[0]['score'] > placar[1]['score']):
-                vitoria = "✅ VITÓRIA DA FURIA!"
-            else:
-              vitoria = "❌ Derrota. NT"  
-                
-
-
-            resposta += (
-                f"\n🏆 Torneio: {match['tournament']['name']} ({league} - {serie})\n"
-                f"🗓️ Data: {data_brasilia}\n"
-                f"⚔️ {' vs '.join(opponents)}\n"
-                f"🔢 Placar: {score_str}\n"
-                f"📌 Status: {status.capitalize()}\n"
-                f"{vitoria}\n"
-                f"{'-'*40}"
-            )
+            resposta += format_match_response(match, include_victory_status=True)
 
         return resposta
     except Exception as e:
         print(f"Erro ao buscar partidas passadas: {e}")
         return "Erro ao buscar últimas partidas!"
 
-
-
 def get_last_furia_wins():
     try:
-        url = 'https://api.pandascore.co/csgo/matches/past'
-        params = {
-            'filter[opponent_id]': 124530,
-            'per_page': 20  
-        }
-        headers = {
-            "Authorization": f"Bearer {PANDASCORE_TOKEN}"
-        }
-
-        res = requests.get(url, headers=headers, params=params)
-        matches = res.json()
-
+        matches = get_furia_matches_from_api(per_page=20)
+        
         if not matches:
             return "Nenhuma partida encontrada."
 
@@ -172,9 +168,8 @@ def get_last_furia_wins():
             if len(placar) == 2:
                 team1 = placar[0]
                 team2 = placar[1]
-                if team1['team_id'] == 124530 and team1['score'] > team2['score']:
-                    vitorias.append(match)
-                elif team2['team_id'] == 124530 and team2['score'] > team1['score']:
+                if (team1['team_id'] == 124530 and team1['score'] > team2['score']) or \
+                   (team2['team_id'] == 124530 and team2['score'] > team1['score']):
                     vitorias.append(match)
 
             if len(vitorias) >= 3:
@@ -185,29 +180,12 @@ def get_last_furia_wins():
 
         resposta = "✅ Últimas 3 vitórias da FURIA (CSGO):\n"
         for match in vitorias:
-            opponents = [o['opponent']['name'] for o in match.get('opponents', [])]
-            placar = match.get('results', [])
-            score_str = f"{placar[0]['score']} x {placar[1]['score']}" if len(placar) == 2 else "Placar indisponível"
-            data_brasilia = converter_utc_para_brasilia(match.get('begin_at', ''))
-
-            status = match.get('status', 'desconhecido')
-            league = match.get('league', {}).get('name', 'desconhecida')
-            serie = match.get('serie', {}).get('full_name', '')
-
-            resposta += (
-                f"\n🏆 Torneio: {match['tournament']['name']} ({league} - {serie})\n"
-                f"🗓️ Data: {data_brasilia}\n"
-                f"⚔️ {' vs '.join(opponents)}\n"
-                f"🔢 Placar: {score_str}\n"
-                f"📌 Status: {status.capitalize()}\n"
-                f"{'-'*40}"
-            )
+            resposta += format_match_response(match)
 
         return resposta
     except Exception as e:
         print(f"Erro ao buscar vitórias: {e}")
         return "Erro ao buscar últimas vitórias!"
-
 
 
 
