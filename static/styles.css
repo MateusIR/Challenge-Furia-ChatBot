@@ -17,18 +17,67 @@ body {
     flex-direction: column;
     min-height: 100vh;
   }
-strong{
-    color: #e9a434;
-}
-.titulo{
-    font-family: "Cal Sans", sans-serif;
-    font-size: 4.5rem;
+/* Replace these existing rules in your CSS */
+.titulo {
+  font-family: "Cal Sans", sans-serif;
+  font-size: 4.5rem;
+  /* New animation properties */
+  opacity: 0;
+  transform: translateX(-100%);
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
-.sub-titulo{
-    font-family: "Cal Sans", sans-serif;
-    font-size: 2.5rem;
+.sub-titulo {
+  font-family: "Cal Sans", sans-serif;
+  font-size: 2.5rem;
+ 
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 1s;
 }
+
+
+strong {
+  color: #e9a434;
+
+}
+
+
+@keyframes slideInFromLeft {
+  0% {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  100% {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.sub-titulo strong {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.sub-titulo strong:nth-child(1) { animation-delay: 1.5s; }
+.sub-titulo strong:nth-child(2) { animation-delay: 1.7s; }
+.sub-titulo strong:nth-child(3) { animation-delay: 1.9s; }
+.sub-titulo strong:nth-child(4) { animation-delay: 2.1s; }
+.sub-titulo strong:nth-child(5) { animation-delay: 2.3s; }
 
 
   .landing-header {

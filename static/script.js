@@ -28,7 +28,7 @@ function addMessage(text, sender) {
   div.className = `message ${sender}`;
   div.innerText = text;
   chatBox.appendChild(div);
-  chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function addLoading() {
