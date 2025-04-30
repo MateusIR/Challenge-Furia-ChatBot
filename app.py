@@ -24,11 +24,11 @@ def chat():
         reply = furia_historia()
     elif '2' in user_message or 'jogadores' in user_message:
         reply = get_furia_players()
-    elif '3' in user_message or 'proximo jogo' in user_message:
+    elif '3' in user_message or 'proximo' in user_message or 'próximo' in user_message:
         reply = get_next_furia_match()
-    elif '4' in user_message or 'ultimos jogos' in user_message:
+    elif '4' in user_message or 'ultimos jogos' in user_message or 'últimos jogos' in user_message:
         reply = get_last_furia_matches()
-    elif '5' in user_message or 'ultimos jogos' in user_message:
+    elif '5' in user_message or 'vitorias' in user_message or 'vitórias' in user_message:
         reply = get_last_furia_wins()
     elif '6' in user_message or 'redes sociais' in user_message:
         reply = furia_social()
@@ -36,13 +36,13 @@ def chat():
         reply = furia_roupas()
     else:
         reply = 'Fala FURIOSO(A)!\n O que quer saber hoje?\n\n' \
-        '1 - nossa história\n' \
-        '2 - jogadores\n' \
-        '3 - proximo jogo\n' \
-        '4 - ultimos jogos\n' \
-        '5 - ultimas vitórias\n' \
-        '6 - nossas redes sociais\n' \
-        '7 - nossas roupas\n' \
+        '1 - Nossa história\n' \
+        '2 - Jogadores\n' \
+        '3 - Próximo jogo\n' \
+        '4 - Últimos jogos\n' \
+        '5 - Últimas vitórias\n' \
+        '6 - Nossas redes sociais\n' \
+        '7 - Nossas roupas\n' \
 
         
         

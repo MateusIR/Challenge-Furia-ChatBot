@@ -95,7 +95,7 @@ challenge-furia-chatbot/
 | `2`, `jogadores`             | Lista dos integrantes da lineup CS2 atual          |
 | `3`, `próximo jogo`          | Detalhes da próxima partida da FURIA               |
 | `4`, `últimos jogos`         | Resumo dos últimos 5 jogos com placar              |
-| `5`, `últimas vitórias`      | Últimas 3 vitórias da FURIA                        |
+| `5`, `vitórias`              | Últimas 3 vitórias da FURIA                        |
 | `6`, `redes sociais`         | Links para Instagram, YouTube e X (Twitter)        |
 | `7`, `roupas`                | Link para a loja oficial da FURIA                  |
 
