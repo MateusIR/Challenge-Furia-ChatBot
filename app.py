@@ -13,6 +13,7 @@ app = Flask(__name__)
 PANDASCORE_TOKEN = os.getenv("PANDASCORE_TOKEN")
 
 @app.route('/')
+
 def index():
     return render_template('index.html')
 
@@ -58,11 +59,26 @@ def get_furia_players():
         )
         data = res.json()
         players = data[2]['players']
-        return 'Integrantes da FURIA CS2:\n\n' + '\n'.join(f"\n• {p['first_name']} \"{p['name']}\" {p['last_name']} \n {p['age']} anos - {p['nationality']}" for p in players)
+
+        html = '<h3>👥 Integrantes da FURIA CS2:</h3><br>'
+        for p in players:
+            nome_completo = f"{p['first_name']} {p['last_name']}"
+            nickname = f"{p['name']}"
+            idade_nacionalidade = f"{p['age']} y   {p['nationality']}"
+            foto = p.get('image_url') or "/static/img/furia_logo.png"
+            html += f"""
+                <div class="jogador">
+                    <img src="{foto}" alt="Foto de {p['name']}" class="foto-jogador">
+                    <div class="jogador-nomes">
+                        <p style="width: 10rem;"><strong>{nickname}</strong><br>{nome_completo}</p><br>
+                        <small>{idade_nacionalidade}</small>
+                    </div>
+                </div>
+            """
+        return html
     except Exception as e:
         print(e)
         return "Erro ao buscar jogadores!"
-
 
 
 

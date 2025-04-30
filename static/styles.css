@@ -17,11 +17,32 @@ body {
     flex-direction: column;
     min-height: 100vh;
   }
-/* Replace these existing rules in your CSS */
+
+
+
+  .jogador {
+  
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.jogador-nomes {
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.foto-jogador {
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
+}
+
+
 .titulo {
   font-family: "Cal Sans", sans-serif;
   font-size: 4.5rem;
-  /* New animation properties */
   opacity: 0;
   transform: translateX(-100%);
   animation: fadeIn 1s ease-out forwards;
