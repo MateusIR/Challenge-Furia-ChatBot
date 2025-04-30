@@ -20,7 +20,7 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     user_message = request.json['message'].lower()
-    if '1' in user_message or 'historia' in user_message:
+    if '1' in user_message or 'historia' in user_message or 'história' in user_message:
         reply = furia_historia()
     elif '2' in user_message or 'jogadores' in user_message:
         reply = get_furia_players()
@@ -162,7 +162,7 @@ def get_last_furia_matches():
         if not matches:
             return "Nenhuma partida recente encontrada."
 
-        resposta = "🕹️ Últimos 5 jogos da FURIA (CSGO):\n"
+        resposta = "🕹️ Últimos 5 jogos da FURIA (CS2):\n"
         for match in matches:
             resposta += format_match_response(match, include_victory_status=True)
 
@@ -194,7 +194,7 @@ def get_last_furia_wins():
         if not vitorias:
             return "A FURIA não venceu recentemente."
 
-        resposta = "✅ Últimas 3 vitórias da FURIA (CSGO):\n"
+        resposta = "✅ Últimas 3 vitórias da FURIA (CS2):\n"
         for match in vitorias:
             resposta += format_match_response(match)
 

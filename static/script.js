@@ -1,3 +1,28 @@
+window.onload = () => {
+  // Requisição inicial ao backend
+  fetch('/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ message: '' }) // Mensagem vazia ou algo como "oi"
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Adiciona a resposta do bot ao chat
+    const chatBox = document.querySelector('.chat-box');
+    const botMessage = document.createElement('div');
+    botMessage.classList.add('message', 'bot');
+    botMessage.textContent = data.reply;
+    chatBox.appendChild(botMessage);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  });
+};
+
+
+
+
+
 const form = document.getElementById('chat-form');
 const input = document.getElementById('chat-input');
 const chatBox = document.getElementById('chat-box');
@@ -34,7 +59,7 @@ function addMessage(text, sender) {
   }
   
   chatBox.appendChild(div);
-  chatBox.scrollTop = chatBox.scrollHeight;
+ 
 }
 
 function addLoading() {
