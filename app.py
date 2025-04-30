@@ -68,16 +68,14 @@ def get_furia_players():
 
 def get_next_furia_match():
     try:
-        # Endpoint para CS2 (não CSGO)
         res = requests.get(
             'https://api.pandascore.co/csgo/matches/upcoming',
             headers={"Authorization": f"Bearer {PANDASCORE_TOKEN}"}
         )
         matches = res.json()
 
-        # Buscar o primeiro jogo onde FURIA está entre os times
         for match in matches:
-            if any(team['opponent']['name'].lower() == 'ence' for team in match.get('opponents', [])):
+            if any(team['opponent']['name'].lower() == 'furia' for team in match.get('opponents', [])):
                 teams = [team['opponent']['name'] for team in match['opponents']]
                 opponent = [t for t in teams if t.lower() != 'furia'][0] if len(teams) > 1 else "TBD"
                 date = match['begin_at']
@@ -214,17 +212,23 @@ def get_last_furia_wins():
 
 
 def furia_social():
-    
-    return """ Nossas Redes Sociais:\n
-    Instagram: https://www.instagram.com/furiagg/\n
-    YouTube: https://www.youtube.com/@FURIAggCS\n
-    X: https://x.com/FURIA
-        """
+    return """🌐 Nossas Redes Sociais:<br>
+    <div class="social-buttons">
+    <h4>📷 Instagram:</h4>
+        <a href="https://www.instagram.com/furiagg/" target="_blank" class="social-btn instagram">@Furiagg</a>
+    <h4>🎥 YouTube:</h4>
+        <a href="https://www.youtube.com/@FURIAggCS" target="_blank" class="social-btn youtube">@FURIAggCS</a>
+    <h4>💬 X:</h4>
+        <a href="https://x.com/FURIA" target="_blank" class="social-btn twitter">@FURIA</a>
+    </div>
+    """
 
 def furia_roupas():
-     return """ Vista o estilo FURIA:\n
-     https://www.furia.gg/collections
-
+     return """ Vista o estilo FURIA:
+    <div class="social-buttons">
+    <h4>🔥Acesse nossa loja:</h4>
+        <a href=" https://www.furia.gg/collections" target="_blank" class="social-btn loja">Furia.gg</a>
+    </div>
             """
 
 
