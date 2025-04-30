@@ -24,8 +24,6 @@ Um chatbot interativo e responsivo para fãs da FURIA, integrado à [PandaScore 
 - HTML/CSS customizado
 - API PandaScore (requer token)
 - JavaScript (para comunicação assíncrona com a API)
-- Docker (opcional)
-
 ---
 
 ## 📦 Instalação Manual
@@ -33,8 +31,8 @@ Um chatbot interativo e responsivo para fãs da FURIA, integrado à [PandaScore 
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seuusuario/furia-chatbot.git
-cd furia-chatbot
+git clone https://github.com/MateusIR/challenge-furia-chatbot.git
+cd challenge-furia-chatbot
 ```
 
 2. Crie um ambiente virtual e ative:
@@ -67,16 +65,6 @@ Acesse em [http://localhost:5000](http://localhost:5000)
 
 ---
 
-## 🐳 Executando com Docker
-
-1. Crie o arquivo `.env` com o token da PandaScore.
-
-2. Execute o build e o container:
-
-```bash
-docker build -t furia-chatbot .
-docker run --env-file .env -p 5000:5000 furia-chatbot
-```
 
 3. Acesse via navegador: [http://localhost:5000](http://localhost:5000)
 
@@ -85,11 +73,10 @@ docker run --env-file .env -p 5000:5000 furia-chatbot
 ## 🗃️ Estrutura de Arquivos
 
 ```
-furia-chatbot/
+challenge-furia-chatbot/
 │
 ├── app.py                # Lógica principal do chatbot Flask
 ├── .env                  # Token de API (não incluso)
-├── Dockerfile            # Docker build config
 ├── static/
 │   └── style.css         # Estilo visual
 |   └── scripts.js       
