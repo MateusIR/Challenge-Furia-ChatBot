@@ -280,5 +280,5 @@ def converter_utc_para_brasilia(data_utc):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    app.run(debug=False)
+
