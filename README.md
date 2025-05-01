@@ -15,6 +15,7 @@ Um chatbot interativo e responsivo para fãs da FURIA, integrado à [PandaScore 
 - 🌐 Links diretos para redes sociais
 - 🛍️ Link para a loja oficial
 
+- 📱 Layout responsivo para mobile
 ---
 
 ## 🛠️ Tecnologias Utilizadas
