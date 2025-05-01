@@ -17,6 +17,7 @@ PANDASCORE_TOKEN = os.getenv("PANDASCORE_TOKEN")
 def index():
     return render_template('index.html')
 
+
 @app.route('/chat', methods=['POST'])
 def chat():
     user_message = request.json['message'].lower()
@@ -279,4 +280,5 @@ def converter_utc_para_brasilia(data_utc):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
+
