@@ -67,7 +67,7 @@ Acesse em [http://localhost:5000](http://localhost:5000)
 ---
 
 
-3. Acesse via navegador: (https://challenge-furia-chatbot.onrender.com/)
+## 🌐 Acesse via navegador: (https://challenge-furia-chatbot.onrender.com/)
 
 ---
 
